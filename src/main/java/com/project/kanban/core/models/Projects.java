@@ -1,5 +1,7 @@
 package com.project.kanban.core.models;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +31,10 @@ public class Projects {
     @Column(length = 200)
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @Column(nullable = false)
+    private LocalDate startDate;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")   
     private User owner;
 }

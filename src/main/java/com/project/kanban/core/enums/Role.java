@@ -1,4 +1,4 @@
-package com.project.kanban.core.models;
+package com.project.kanban.core.enums;
 
 public enum Role {
     ROLE_COMMONUSER,

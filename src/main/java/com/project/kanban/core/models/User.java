@@ -1,5 +1,9 @@
 package com.project.kanban.core.models;
 
+
+
+import com.project.kanban.core.enums.Role;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
