@@ -13,10 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProjectsListem {
     
+    private Long id;
 
     private String name;
 
     private LocalDate startDate;
 
-    private String owner;
+    private String ownerName;
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Projetos</title>
+</head>
+<body>
+    <h1>Lista de Projetos</h1>
+
+    <p th:if="${projectsListem.empty}">Nenhuma cliente cadastrado.</p>
+
+    <table class="table" th:unless="${projectsListem.empty}">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome do Projeto</th>
+                <th scope="col">Nome do Usuario</th>
+                <th scope="col">Data de criaçao</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="project : ${projectsListem}">
+                <th scope="row" th:text="${project.id}">1</th>
+                <td th:text="${project.name}">Project</td>
+                <td th:text="${project.ownerName}">Davi</td>
+                <td th th:text="${project.startDate}">10/04/25</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

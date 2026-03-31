@@ -23,6 +23,6 @@ public class ProjectsForm {
     @DateTimeFormat(iso = ISO.DATE)
     private LocalDate startDate;
 
-    private Long owner;
+    private Long idOwner;
 
 }
