@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.project.kanban.core.auth.AuthService;
 import com.project.kanban.core.exceptions.ProjectsNotFoundException;
 import com.project.kanban.core.models.Projects;
 import com.project.kanban.core.repositories.ProjectsRepository;
@@ -13,7 +14,6 @@ import com.project.kanban.web.projects.dtos.ProjectsListem;
 import com.project.kanban.web.projects.mappers.ProjectsMapper;
 
 import lombok.RequiredArgsConstructor;
-import lombok.var;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +21,7 @@ public class ProjectsService {
     
     private final ProjectsRepository projectsRepository;
     private final ProjectsMapper projectsMapper;
+    private final AuthService authService;
 
     
     public List<ProjectsListem> findAll(){
@@ -33,7 +34,8 @@ public class ProjectsService {
 
     public Projects save(ProjectsForm projectsForm){
         projectsForm.setStartDate(LocalDate.now());
-        projectsForm.setIdOwner(1l);
+        Long idOwner= authService.getUserLogado().getId();
+        projectsForm.setIdOwner(idOwner);
         var project = projectsMapper.toProjects(projectsForm);
 
         return projectsRepository.save(project);

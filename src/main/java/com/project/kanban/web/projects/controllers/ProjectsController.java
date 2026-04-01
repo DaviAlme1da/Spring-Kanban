@@ -51,7 +51,6 @@ public class ProjectsController {
         return new ModelAndView("projects/create", model);
     }
 
-    //o id esta vindo nulo(???)
     @PostMapping("/edit/{id}")
     public String create(@PathVariable Long id ,ProjectsForm projectsForm){
 

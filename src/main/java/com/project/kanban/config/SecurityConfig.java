@@ -10,11 +10,26 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
     
+    
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        return http.authorizeHttpRequests(customizer -> customizer
-                .anyRequest().permitAll()
-                )
-                .build();
+        return  http.authorizeHttpRequests(customizer -> customizer
+                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/projects/**").hasAnyRole("COMMONUSER", "ADMIN")
+                .anyRequest().authenticated()
+            )
+            .formLogin(customizer -> customizer
+                .loginPage("/auth/login")
+                .defaultSuccessUrl("/projects", true)
+                .permitAll()
+            )
+            .logout(customizer -> customizer
+                .logoutSuccessUrl("/auth/login")
+                .permitAll()
+            )
+
+        
+            .build();
     }
 }
