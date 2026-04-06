@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import com.project.kanban.core.exceptions.UserNotFoundException;
 import com.project.kanban.core.models.Projects;
 import com.project.kanban.core.repositories.UserRepository;
+import com.project.kanban.web.projects.dtos.ProjectsDetails;
 import com.project.kanban.web.projects.dtos.ProjectsForm;
 import com.project.kanban.web.projects.dtos.ProjectsListem;
 
@@ -45,6 +46,19 @@ public class ProjectsMapperImpl implements ProjectsMapper{
         return ProjectsListem.builder()
             .id(projects.getId())
             .name(projects.getName())
+            .startDate(projects.getStartDate())
+            .ownerName(projects.getOwner().getName())
+            .build();
+    }
+
+    @Override
+
+
+    public ProjectsDetails toProjectsDetails(Projects projects) {
+        return ProjectsDetails.builder()
+            .id(projects.getId())
+            .name(projects.getName())
+            .description(projects.getDescription())
             .startDate(projects.getStartDate())
             .ownerName(projects.getOwner().getName())
             .build();

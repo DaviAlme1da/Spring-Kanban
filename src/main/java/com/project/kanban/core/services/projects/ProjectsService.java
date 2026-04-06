@@ -9,6 +9,7 @@ import com.project.kanban.core.auth.AuthService;
 import com.project.kanban.core.exceptions.ProjectsNotFoundException;
 import com.project.kanban.core.models.Projects;
 import com.project.kanban.core.repositories.ProjectsRepository;
+import com.project.kanban.web.projects.dtos.ProjectsDetails;
 import com.project.kanban.web.projects.dtos.ProjectsForm;
 import com.project.kanban.web.projects.dtos.ProjectsListem;
 import com.project.kanban.web.projects.mappers.ProjectsMapper;
@@ -63,5 +64,13 @@ public class ProjectsService {
             .orElseThrow(ProjectsNotFoundException::new);
         
          projectsRepository.delete(projectDelete);
+    }
+
+    public ProjectsDetails details(Long id){
+        var projectDetails = projectsRepository.findById(id)
+            .map(projectsMapper::toProjectsDetails)
+            .orElseThrow(ProjectsNotFoundException::new);
+
+        return projectDetails;
     }
 }

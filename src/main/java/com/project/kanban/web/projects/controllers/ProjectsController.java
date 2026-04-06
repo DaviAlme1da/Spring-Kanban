@@ -66,4 +66,12 @@ public class ProjectsController {
 
         return "redirect:/projects";
     }
+
+    @GetMapping("details/{id}")
+    public ModelAndView details(@PathVariable Long id){
+
+        var model = Map.of("ProjectDetails", projectsService.details(id));
+
+        return new ModelAndView("projects/details", model);
+    }
 }

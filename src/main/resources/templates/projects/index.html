@@ -1,32 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/estilo.css}">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Projetos</title>
 </head>
-<body>
-    <h1>Lista de Projetos</h1>
 
-    <p th:if="${projectsListem.empty}">Nenhuma cliente cadastrado.</p>
+<body >
 
-    <table class="table" th:unless="${projectsListem.empty}">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nome do Projeto</th>
-                <th scope="col">Nome do Usuario</th>
-                <th scope="col">Data de criaçao</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="project : ${projectsListem}">
-                <th scope="row" th:text="${project.id}">1</th>
-                <td th:text="${project.name}">Project</td>
-                <td th:text="${project.ownerName}">Davi</td>
-                <td th th:text="${project.startDate}">10/04/25</td>
-            </tr>
-        </tbody>
+    <table>
+        <tr>
+            <td>
+                <h1>Lista de Projetos</h1>
+            </td>
+            <td>
+                <a th:href="@{/projects/create}">+ Novo Projeto</a>
+            </td>
+        </tr>
     </table>
+
+    <hr>
+
+    <p th:if="${projectsListem.empty}">Nenhum projeto cadastrado.</p>
+
+    <div th:unless="${projectsListem.empty}">
+        <table>
+            <tbody>
+                <tr th:each="project : ${projectsListem}">
+                    <td>
+                        <b th:text="${project.name}">Nome do Projeto</b><br>
+                        <small>
+                            Criador: <span th:text="${project.ownerName}">Davi</span> |
+                            Data: <span
+                                th:text="${#temporals.format(project.startDate, 'dd/MM/yyyy')}">10/04/2026</span>
+                        </small>
+                    </td>
+
+                    <td>
+                        <details>
+                            
+                            <div>
+                                <a th:href="@{/projects/details/{id}(id=${project.id})}">Ver Detalhes</a><br>
+                                <a th:href="@{/projects/edit/{id}(id=${project.id})}">Editar</a><br>
+                                <a th:href="@{/projects/delete/{id}(id=${project.id})}"
+                                    onclick="return confirm('Excluir projeto?')">Excluir</a>
+                            </div>
+                        </details>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </body>
+
 </html>
