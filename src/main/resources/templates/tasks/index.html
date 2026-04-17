@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>Lista de Tarefas</title>
+        <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+
+<body >
+
+    <table>
+        <tr>
+            <td>
+                <h1>Lista de Tarefas</h1>
+            </td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <p th:if="${TasksListItem.empty}">Nenhuma tarefa  cadastrado.</p>
+
+    <div th:unless="${TasksListItem.empty}">
+        <table>
+            <tbody>
+                <tr th:each="task : ${TasksListItem}">
+                    <td>
+                        <a th:href="@{/projects/{task.idProject}/tasks/details/{idTask}(idTask=${task.idTask})}">
+                            <b th:text="${task.title}">Nome do Projeto</b><br>
+                        </a>
+                        <small>
+                            Status: <span th:text="${task.status}">Pronto</span> |
+                        
+                        </small>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>

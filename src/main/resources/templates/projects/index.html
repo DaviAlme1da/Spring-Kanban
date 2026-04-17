@@ -29,7 +29,9 @@
             <tbody>
                 <tr th:each="project : ${projectsListem}">
                     <td>
-                        <b th:text="${project.name}">Nome do Projeto</b><br>
+                        <a th:href="@{/projects/{id}/tasks(id=${project.id})}">
+                            <b th:text="${project.name}">Nome do Projeto</b><br>
+                        </a>
                         <small>
                             Criador: <span th:text="${project.ownerName}">Davi</span> |
                             Data: <span
