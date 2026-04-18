@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.project.kanban.core.enums.Status;
+import com.project.kanban.core.exceptions.ProjectsNotFoundException;
 import com.project.kanban.core.exceptions.TasksNotFoundException;
+import com.project.kanban.core.repositories.ProjectsRepository;
 import com.project.kanban.core.repositories.TaskRepository;
+import com.project.kanban.core.services.projects.ProjectsService;
 import com.project.kanban.web.Tasks.dtos.TaskDetails;
 import com.project.kanban.web.Tasks.dtos.TaskForm;
 import com.project.kanban.web.Tasks.dtos.TaskListem;
@@ -17,81 +20,98 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TasksService {
-    
+
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
-    
-    public List<TaskListem> index(Long idProject){
+    private final ProjectsRepository projectsRepository;
+    private final ProjectsService projectsService;
+
+    public List<TaskListem> index(Long idProject) {
+        var project = projectsRepository.findById(idProject)
+                .orElseThrow(ProjectsNotFoundException::new);
+
+        projectsService.checkOwnershipOrAdmin(project); 
+
         return taskRepository.findByProjectId(idProject)
-            .stream()
-            .map(taskMapper::toTaskListem)
-            .toList()
-            ;
+                .stream()
+                .map(taskMapper::toTaskListem)
+                .toList();
     }
 
-    public void save(TaskForm taskForm, Long idProject){
+    public void save(TaskForm taskForm, Long idProject) {
+        var project = projectsRepository.findById(idProject)
+                .orElseThrow(ProjectsNotFoundException::new);
+
+        projectsService.checkOwnershipOrAdmin(project); 
+
         taskForm.setProjectId(idProject);
         taskForm.setStatus(Status.TODO);
-        var task = taskMapper.toTask(taskForm);
+        taskRepository.save(taskMapper.toTask(taskForm));
+    }
 
+    public TaskForm update(Long id) {
+        var task = taskRepository.findById(id)
+                .orElseThrow(TasksNotFoundException::new);
+
+        projectsService.checkOwnershipOrAdmin(task.getProject()); 
+
+        return taskMapper.toTaskForm(task);
+    }
+
+    public void update(Long id, TaskForm taskForm) {
+        var task = taskRepository.findById(id)
+                .orElseThrow(TasksNotFoundException::new);
+
+        projectsService.checkOwnershipOrAdmin(task.getProject()); 
+
+        task.setTitle(taskForm.getTitle());
+        task.setDescription(taskForm.getDescription());
         taskRepository.save(task);
     }
 
-    public TaskForm update(Long id){
-        return taskRepository.findById(id)
-        .map(taskMapper::toTaskForm)
-        .orElseThrow(TasksNotFoundException::new)
-        ;
-    }
-
-    public void update(Long id, TaskForm taskForm){
-        var taskUpdate = taskRepository.findById(id)
-            .orElseThrow(TasksNotFoundException::new);
-        
-        taskUpdate.setTitle(taskForm.getTitle());
-        taskUpdate.setDescription(taskForm.getDescription());
-
-        taskRepository.save(taskUpdate);
-    }
-
-    public void moveToNextStatus(Long id){
-        var taskUpdate = taskRepository.findById(id)
-            .orElseThrow(TasksNotFoundException::new);
-        
-        if(taskUpdate.getStatus().equals(Status.TODO)){
-            taskUpdate.setStatus(Status.DOING);
-        }else if (taskUpdate.getStatus().equals(Status.DOING)){
-            taskUpdate.setStatus(Status.DONE);
-        }
-
-        taskRepository.save(taskUpdate);
-    }
-
-    public void moveToPreviousStatus(Long id){
-        var taskUpdate = taskRepository.findById(id)
-            .orElseThrow(TasksNotFoundException::new);
-        
-        if(taskUpdate.getStatus().equals(Status.DONE)){
-            taskUpdate.setStatus(Status.DOING);
-        }else if (taskUpdate.getStatus().equals(Status.DOING)){
-            taskUpdate.setStatus(Status.TODO);
-        }
-
-        taskRepository.save(taskUpdate);
-    }
-
-    public void delete(Long id){
+    public void moveToNextStatus(Long id) {
         var task = taskRepository.findById(id)
-            .orElseThrow(TasksNotFoundException::new);
-        ;
+                .orElseThrow(TasksNotFoundException::new);
+
+        projectsService.checkOwnershipOrAdmin(task.getProject()); 
+
+        if (task.getStatus().equals(Status.TODO)) {
+            task.setStatus(Status.DOING);
+        } else if (task.getStatus().equals(Status.DOING)) {
+            task.setStatus(Status.DONE);
+        }
+        taskRepository.save(task);
+    }
+
+    public void moveToPreviousStatus(Long id) {
+        var task = taskRepository.findById(id)
+                .orElseThrow(TasksNotFoundException::new);
+
+        projectsService.checkOwnershipOrAdmin(task.getProject()); 
+
+        if (task.getStatus().equals(Status.DONE)) {
+            task.setStatus(Status.DOING);
+        } else if (task.getStatus().equals(Status.DOING)) {
+            task.setStatus(Status.TODO);
+        }
+        taskRepository.save(task);
+    }
+
+    public void delete(Long id) {
+        var task = taskRepository.findById(id)
+                .orElseThrow(TasksNotFoundException::new);
+
+        projectsService.checkOwnershipOrAdmin(task.getProject()); 
 
         taskRepository.delete(task);
     }
 
-    public TaskDetails details(Long id){
-        return taskRepository.findById(id)
-            .map(taskMapper::toTaskDetails)
-             .orElseThrow(TasksNotFoundException::new);
-    }
+    public TaskDetails details(Long id) {
+        var task = taskRepository.findById(id)
+                .orElseThrow(TasksNotFoundException::new);
 
+        projectsService.checkOwnershipOrAdmin(task.getProject()); 
+
+        return taskMapper.toTaskDetails(task);
+    }
 }

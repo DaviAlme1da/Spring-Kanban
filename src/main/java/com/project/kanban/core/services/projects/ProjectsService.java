@@ -3,9 +3,11 @@ package com.project.kanban.core.services.projects;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import com.project.kanban.core.auth.AuthService;
+import com.project.kanban.core.enums.Role;
 import com.project.kanban.core.exceptions.ProjectsNotFoundException;
 import com.project.kanban.core.models.Projects;
 import com.project.kanban.core.repositories.ProjectsRepository;
@@ -25,8 +27,17 @@ public class ProjectsService {
     private final AuthService authService;
 
     
-    public List<ProjectsListem> findAll(){
-        return projectsRepository.findAll()
+    public List<ProjectsListem> findAll() {
+        var userLogado = authService.getUserLogado();
+        boolean isAdmin = userLogado.getRole() == Role.ROLE_ADMIN;
+
+        if (isAdmin) {
+            return projectsRepository.findAll()
+                    .stream()
+                    .map(projectsMapper::toProjectsListem)
+                    .toList();
+        }
+        return projectsRepository.findByOwnerId(userLogado.getId())
                 .stream()
                 .map(projectsMapper::toProjectsListem)
                 .toList();
@@ -43,34 +54,50 @@ public class ProjectsService {
     }
 
     public ProjectsForm update(Long id){
-        var projectsForm = projectsRepository.findById(id)
-                        .map(projectsMapper::toProjectsForm)
-                        .orElseThrow(ProjectsNotFoundException::new);
-        return projectsForm;
+       var project = projectsRepository.findById(id)
+                .orElseThrow(ProjectsNotFoundException::new);
+
+        checkOwnershipOrAdmin(project);
+
+        return projectsMapper.toProjectsForm(project);
     }
 
     public Projects update(Long id, ProjectsForm projectsForm){
         var projectUpdate = projectsRepository.findById(id)
-            .orElseThrow(ProjectsNotFoundException::new);
-        
+                .orElseThrow(ProjectsNotFoundException::new);
+
+        checkOwnershipOrAdmin(projectUpdate);
+
         projectUpdate.setName(projectsForm.getName());
         projectUpdate.setDescription(projectsForm.getDescription());
-
         return projectsRepository.save(projectUpdate);
     }
 
     public void delete(Long id){
-        var projectDelete = projectsRepository.findById(id)
-            .orElseThrow(ProjectsNotFoundException::new);
-        
-         projectsRepository.delete(projectDelete);
+        var project = projectsRepository.findById(id)
+                .orElseThrow(ProjectsNotFoundException::new);
+
+        checkOwnershipOrAdmin(project);
+
+        projectsRepository.delete(project);
     }
 
     public ProjectsDetails details(Long id){
-        var projectDetails = projectsRepository.findById(id)
-            .map(projectsMapper::toProjectsDetails)
-            .orElseThrow(ProjectsNotFoundException::new);
+        var project = projectsRepository.findById(id)
+                .orElseThrow(ProjectsNotFoundException::new);
 
-        return projectDetails;
+        checkOwnershipOrAdmin(project);
+
+        return projectsMapper.toProjectsDetails(project);
+    }
+
+    public void checkOwnershipOrAdmin(Projects project) {
+        var userLogado = authService.getUserLogado();
+        boolean isAdmin = userLogado.getRole() == Role.ROLE_ADMIN;
+        boolean isOwner = project.getOwner().getId().equals(userLogado.getId());
+
+        if (!isAdmin && !isOwner) {
+            throw new AccessDeniedException("Acesso negado");
+        }
     }
 }
