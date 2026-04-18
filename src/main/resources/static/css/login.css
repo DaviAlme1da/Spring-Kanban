@@ -1,0 +1,297 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg:          #FDFBF6;
+    --card:        #f6f6f6;
+    --sage:        #88A085;
+    --sage-dark:   #6b8469;
+    --sage-light:  #d4e2d3;
+    --text:        #4A554A;
+    --muted:       #3f6739;
+    --border:      #E5E7E3;
+    --terracota:   #C99A7C;
+    --radius:      16px;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ── Background decorativo ── */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 60% 50% at 10% 20%, rgba(136,160,133,0.13) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 90% 80%, rgba(201,154,124,0.10) 0%, transparent 55%);
+    pointer-events: none;
+}
+
+/* Formas orgânicas de fundo */
+.bg-shape {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(48px);
+    opacity: 0.18;
+}
+.bg-shape-1 {
+    width: 320px; height: 320px;
+    background: var(--sage);
+    top: -80px; left: -80px;
+}
+.bg-shape-2 {
+    width: 220px; height: 280px;
+    background: var(--terracota);
+    bottom: -60px; right: -40px;
+}
+.bg-shape-3 {
+    width: 180px; height: 180px;
+    background: var(--sage-light);
+    top: 55%; left: 8%;
+}
+
+/* ── Grid de bolinhas sutil ── */
+.dot-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgba(74,85,74,0.07) 1px, transparent 1px);
+    background-size: 28px 28px;
+}
+
+/* ── Card ── */
+.card {
+    position: relative;
+    z-index: 10;
+    background: var(--card);
+    border-radius: 24px;
+    padding: 48px 44px;
+    width: 420px;
+    box-shadow:
+        0 2px 0 rgba(136,160,133,0.15),
+        0 12px 40px rgba(74,85,74,0.08),
+        0 2px 8px rgba(74,85,74,0.05);
+    border: 1px solid rgba(229,231,227,0.8);
+    animation: fadeUp 0.55s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Linha de cor no topo do card */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 32px; right: 32px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--sage) 0%, var(--terracota) 100%);
+    border-radius: 0 0 4px 4px;
+}
+
+/* ── Header ── */
+.card-header {
+    margin-bottom: 32px;
+    animation: fadeUp 0.55s 0.08s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.brand-mark {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.brand-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--sage);
+}
+
+.brand-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--text);
+    line-height: 1.25;
+}
+
+.card-title em {
+    font-style: italic;
+    color: var(--sage);
+}
+
+.card-subtitle {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 300;
+}
+
+/* ── Form ── */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    animation: fadeUp 0.55s cubic-bezier(0.22,1,0.36,1) both;
+}
+.field:nth-child(1) { animation-delay: 0.14s; }
+.field:nth-child(2) { animation-delay: 0.20s; }
+
+label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: 0.02em;
+}
+
+.input-wrap {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    pointer-events: none;
+    transition: color 0.2s;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    height: 46px;
+    padding: 0 14px 0 40px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: #FDFBF6;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: var(--sage);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(136,160,133,0.15);
+}
+
+input[type="text"]:focus ~ .input-icon,
+input[type="password"]:focus ~ .input-icon {
+    color: var(--sage);
+}
+
+input::placeholder {
+    color: #c5cbc4;
+    font-weight: 300;
+}
+
+/* ── Botão submit ── */
+.btn-submit {
+    margin-top: 6px;
+    width: 100%;
+    height: 48px;
+    background: var(--sage);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(136,160,133,0.35);
+    animation: fadeUp 0.55s 0.26s cubic-bezier(0.22,1,0.36,1) both;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-submit:hover {
+    background: var(--sage-dark);
+    box-shadow: 0 6px 20px rgba(136,160,133,0.40);
+    transform: translateY(-1px);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(136,160,133,0.3);
+}
+
+.btn-arrow {
+    width: 16px; height: 16px;
+    transition: transform 0.2s;
+}
+
+.btn-submit:hover .btn-arrow {
+    transform: translateX(3px);
+}
+
+/* ── Footer links ── */
+.footer-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+    animation: fadeUp 0.55s 0.32s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.footer-links a {
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: var(--sage);
+}
+
+/* ── Divisor ── */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 4px 0;
+}
+
+.divider span {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+.divider p {
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+}
