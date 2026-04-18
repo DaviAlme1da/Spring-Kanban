@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Tarefa</title>
+</head>
+<body>
+    <h1>Criar Tarefa</h1>
+
+    <form method="post" th:object="${TaksForm}">
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+            <div class="form-group">
+              <label for="title">Nome*</label>
+              <input type="text" th:field="*{title}" required class="form-control">
+              <ul>
+                <li class="text-danger" th:each="error : ${#fields.errors('title')}" th:text="${error}">
+                </li>
+              </ul>
+            </div>
+
+            <div class="form-group">
+              <label for="description">Descrição</label>
+              <input type="text" th:field="*{description}" class="form-control">
+              <ul>
+                <li class="text-danger" th:each="error : ${#fields.errors('description')}" th:text="${error}">
+                </li>
+              </ul>
+            </div>
+            <button class="btn btn-primary" type="submit">Salvar</button>
+    </form>
+</body>
+</html>
