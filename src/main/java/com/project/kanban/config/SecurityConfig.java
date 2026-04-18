@@ -26,12 +26,12 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/projects", true)
                 .permitAll()
             )
-            .logout(customizer -> customizer
+            .logout(logout -> logout
+                .logoutUrl("/auth/logout")
                 .logoutSuccessUrl("/auth/login")
                 .permitAll()
-            )
+)
 
-        
             .build();
     }
 }
