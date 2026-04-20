@@ -79,6 +79,8 @@ public class ProjectsService {
 
         checkOwnershipOrAdmin(project);
 
+        
+
         projectsRepository.delete(project);
     }
 

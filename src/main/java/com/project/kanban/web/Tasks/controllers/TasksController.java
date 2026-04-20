@@ -31,10 +31,15 @@ public class TasksController {
     }
 
     @GetMapping("/create")
-    public ModelAndView create() {
-        var model = Map.of("TaksForm", new TaskForm());
-
-        return new ModelAndView("tasks/create", model);
+    public ModelAndView create(@PathVariable Long idProject) {
+        var model = Map.of(
+                "TaksForm", new TaskForm(),
+                "pageTitle", "Criar Tarefa",
+                "pageSubtitle", "Novo item",
+                "submitLabel", "Adicionar Task",
+                "formAction", "/projects/" + idProject + "/tasks/create",
+                "idProject", idProject);
+        return new ModelAndView("tasks/form", model);
     }
 
     @PostMapping("/create")
@@ -42,47 +47,47 @@ public class TasksController {
 
         tasksService.save(taskForm, idProject);
 
-        return "redirect:/projects/{idProject}/tasks";
+        return "redirect:/projects/" + idProject + "/tasks";
     }
 
     @GetMapping("/edit/{id}")
-    public ModelAndView edit(@PathVariable Long id) {
-
-        var model = Map.of("TaksForm", tasksService.update(id));
-
-        return new ModelAndView("tasks/create", model);
+    public ModelAndView edit(@PathVariable Long idProject, @PathVariable Long id) {
+        var model = Map.of(
+                "TaksForm", tasksService.update(id),
+                "pageTitle", "Editar Tarefa",
+                "pageSubtitle", "Atualizar dados",
+                "submitLabel", "Salvar Alterações",
+                "formAction", "/projects/" + idProject + "/tasks/edit/" + id,
+                "idProject", idProject);
+        return new ModelAndView("tasks/form", model);
     }
 
     @PostMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, TaskForm taskForm) {
+    public String edit(@PathVariable Long idProject,
+            @PathVariable Long id,
+            TaskForm taskForm) {
 
         tasksService.update(id, taskForm);
 
-        return "redirect:/projects/{idProject}/tasks";
+        return "redirect:/projects/" + idProject + "/tasks";
     }
 
     @GetMapping("/moveToNextStatus/{id}")
-    public String moveToNextStatus(@PathVariable Long id) {
-
+    public String moveToNextStatus(@PathVariable Long idProject, @PathVariable Long id) {
         tasksService.moveToNextStatus(id);
-
-        return "redirect:/projects/{idProject}/tasks";
+        return "redirect:/projects/" + idProject + "/tasks"; 
     }
 
     @GetMapping("/moveToPreviousStatus/{id}")
-    public String moveToPreviousStatus(@PathVariable Long id) {
-
+    public String moveToPreviousStatus(@PathVariable Long idProject, @PathVariable Long id) {
         tasksService.moveToPreviousStatus(id);
-
-        return "redirect:/projects/{idProject}/tasks";
+        return "redirect:/projects/" + idProject + "/tasks"; 
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-
+    public String delete(@PathVariable Long idProject, @PathVariable Long id) {
         tasksService.delete(id);
-
-        return "redirect:/projects/{idProject}/tasks";
+        return "redirect:/projects/" + idProject + "/tasks"; 
     }
 
     @GetMapping("/details/{id}")

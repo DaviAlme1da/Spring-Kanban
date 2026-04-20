@@ -18,26 +18,30 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/projects")
 public class ProjectsController {
-    
+
     private final ProjectsService projectsService;
 
     @GetMapping
-    public ModelAndView index(){
+    public ModelAndView index() {
 
-        var model = Map.of("projectsListem",projectsService.findAll());
+        var model = Map.of("projectsListem", projectsService.findAll());
         return new ModelAndView("projects/index", model);
     }
 
     @GetMapping("/create")
-    public ModelAndView create(){
+    public ModelAndView create() {
+        var model = Map.of(
+                "ProjectsForm", new ProjectsForm(),
+                "pageTitle", "Criar Projeto",
+                "pageSubtitle", "Novo projeto",
+                "submitLabel", "Salvar Projeto",
+                "formAction", "/projects/create");
 
-        var model = Map.of("ProjectsForm",new ProjectsForm());
-        return new ModelAndView("projects/create", model);
+        return new ModelAndView("projects/form", model);
     }
 
-
     @PostMapping("/create")
-    public String create(ProjectsForm projectsForm){
+    public String create(ProjectsForm projectsForm) {
 
         projectsService.save(projectsForm);
 
@@ -45,14 +49,22 @@ public class ProjectsController {
     }
 
     @GetMapping("/edit/{id}")
-    public ModelAndView edite(@PathVariable Long id){
+    public ModelAndView edit(@PathVariable Long id) {
+        var form = projectsService.update(id);
 
-        var model = Map.of("ProjectsForm", projectsService.update(id));
-        return new ModelAndView("projects/create", model);
+        var model = Map.of(
+                "ProjectsForm", form,
+                "pageTitle", "Editar Projeto",
+                "pageSubtitle", "Atualizar dados",
+                "submitLabel", "Salvar Alterações",
+                "formAction", "/projects/edit/" + id,
+                "projectId", id);
+
+        return new ModelAndView("projects/form", model);
     }
 
     @PostMapping("/edit/{id}")
-    public String create(@PathVariable Long id ,ProjectsForm projectsForm){
+    public String create(@PathVariable Long id, ProjectsForm projectsForm) {
 
         projectsService.update(id, projectsForm);
 
@@ -60,7 +72,7 @@ public class ProjectsController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id) {
 
         projectsService.delete(id);
 
@@ -68,7 +80,7 @@ public class ProjectsController {
     }
 
     @GetMapping("details/{id}")
-    public ModelAndView details(@PathVariable Long id){
+    public ModelAndView details(@PathVariable Long id) {
 
         var model = Map.of("ProjectDetails", projectsService.details(id));
 

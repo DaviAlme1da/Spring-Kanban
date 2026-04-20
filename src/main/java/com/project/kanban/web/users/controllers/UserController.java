@@ -29,8 +29,14 @@ public class UserController {
 
     @GetMapping("/create")
     public ModelAndView create() {
-        var model = Map.of("UserForm", new UserForm());
-        return new ModelAndView("users/create", model);
+        var model = Map.of(
+                "UserForm", new UserForm(),
+                "pageTitle", "Criar Usuário",
+                "pageSubtitle", "Gerenciamento",
+                "submitLabel", "Criar Usuário",
+                "formAction", "/users/create",
+                "showPassword", true);
+        return new ModelAndView("users/form", model);
     }
 
     @PostMapping("/create")
@@ -41,8 +47,14 @@ public class UserController {
 
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable Long id) {
-        var model = Map.of("UserForm", userService.update(id));
-        return new ModelAndView("users/create", model);
+        var model = Map.of(
+                "UserForm", userService.update(id),
+                "pageTitle", "Editar Usuário",
+                "pageSubtitle", "Gerenciamento",
+                "submitLabel", "Salvar Alterações",
+                "formAction", "/users/edit/" + id,
+                "showPassword", false); 
+        return new ModelAndView("users/form", model);
     }
 
     @PostMapping("/edit/{id}")

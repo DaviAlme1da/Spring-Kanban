@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{fragments/layout :: layout(~{::title}, ~{::content})}">
+
+<title th:fragment="title">Usuários — Kanban</title>
+
+<th:block th:fragment="content">
+<main class="main">
+
+    <div class="page-header">
+        <div class="page-header-left">
+            <h1 class="page-title">Gerenciamento de Usuários</h1>
+            <span class="user-count"
+                  th:text="${usersListem.size()} + ' usuário(s) cadastrado(s)'">0 usuários</span>
+        </div>
+        <a th:href="@{/users/create}" class="btn-primary">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Novo usuário
+        </a>
+    </div>
+
+    <!-- Empty state -->
+    <div class="empty-state" th:if="${usersListem.empty}">
+        <div class="empty-icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <circle cx="10" cy="8" r="4" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M2 22c0-4 3.58-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M20 10v6M23 13h-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <p class="empty-title">Nenhum usuário cadastrado</p>
+        <p class="empty-sub">Crie o primeiro usuário para começar.</p>
+    </div>
+
+    <!-- Tabela -->
+    <div class="table-card" th:unless="${usersListem.empty}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Usuário</th>
+                    <th>Perfil</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${usersListem}">
+
+                    <td>
+                        <div class="user-cell">
+                            <div class="user-initials"
+                                 th:text="${#strings.toUpperCase(#strings.substring(user.name, 0, 2))}">US</div>
+                            <span class="user-name" th:text="${user.name}">Nome</span>
+                        </div>
+                    </td>
+
+                    <td>
+                        <span class="role-badge"
+                              th:classappend="${user.role.name() == 'ADMIN'} ? ' role-admin' : ' role-user'"
+                              th:text="${user.role.name() == 'ADMIN'} ? 'Admin' : 'Membro'">
+                            Perfil
+                        </span>
+                    </td>
+
+                    <td>
+                        <div class="actions-cell">
+                            <a class="btn-action btn-action-edit"
+                               th:href="@{/users/edit/{id}(id=${user.id})}"
+                               title="Editar usuário">
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                    <path d="M9.5 2.5l2 2L4 12H2v-2L9.5 2.5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                            <a class="btn-action btn-action-delete"
+                               th:href="@{/users/delete/{id}(id=${user.id})}"
+                               title="Excluir usuário"
+                               onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                    <path d="M2 3.5h10M5 3.5V2.5h4v1M5.5 6v4M8.5 6v4M3 3.5l.7 7.5h6.6L11 3.5"
+                                          stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+</th:block>
+
+</html>

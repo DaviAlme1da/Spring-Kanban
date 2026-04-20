@@ -30,6 +30,8 @@ public class TaskMapperImpl implements TaskMapper {
     @Override
     public TaskDetails toTaskDetails(Task task) {
         return TaskDetails.builder()
+            .idTask(task.getId())
+            .idProject(task.getProject().getId())
             .title(task.getTitle())
             .description(task.getDescription())
             .status(task.getStatus())

@@ -1,12 +1,66 @@
 <!DOCTYPE html>
-<html lang='en'>
-<head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>Page Title</title>
-    <link rel='stylesheet' href='main.css'>
-</head>
-<body>
-    <h1>olaaa</h1>
-</body>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::title}, ~{::content})}">
+
+<title th:fragment="title" th:text="${TaskDetails.title} + ' — Kanban'">Detalhes da Tarefa</title>
+
+<th:block th:fragment="content">
+<main class="main">
+    <div class="doc-card">
+
+        <div class="doc-stripe"></div>
+
+        <div class="doc-inner">
+
+            <div class="doc-header">
+                <div class="doc-header-left">
+                    <p class="doc-label">Detalhes da tarefa</p>
+                    <h1 class="doc-title" th:text="${TaskDetails.title}">Título da Task</h1>
+                </div>
+
+                <span class="status-badge"
+                      th:classappend="${TaskDetails.status.name() == 'TODO'}   ? ' badge-todo'   :
+                                      (${TaskDetails.status.name() == 'DOING'} ? ' badge-doing'  : ' badge-done')"
+                      th:text="${TaskDetails.status.name() == 'TODO'}   ? 'A Fazer' :
+                               (${TaskDetails.status.name() == 'DOING'} ? 'Em Execução' : 'Concluído')">
+                    Status
+                </span>
+            </div>
+
+            <div class="doc-divider"></div>
+
+            <p class="doc-section-label">Descrição</p>
+            <p class="doc-description"
+               th:text="${TaskDetails.description != null and !#strings.isEmpty(TaskDetails.description)}
+                         ? ${TaskDetails.description}
+                         : 'Nenhuma descrição fornecida.'">
+                Descrição da tarefa.
+            </p>
+
+            <div class="doc-footer">
+                <a th:href="@{/projects/{idProject}/tasks/edit/{idTask}(idProject=${TaskDetails.idProject}, idTask=${TaskDetails.idTask})}"
+                   class="btn-edit">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M9.5 2.5l2 2L4 12H2v-2L9.5 2.5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+                    </svg>
+                    Editar
+                </a>
+
+                <a th:href="@{/projects/{idProject}/tasks/delete/{idTask}(idProject=${TaskDetails.idProject}, idTask=${TaskDetails.idTask})}"
+                   class="btn-delete"
+                   onclick="return confirm('Tem certeza que deseja excluir esta tarefa?')">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M2 3.5h10M5 3.5V2.5h4v1M5.5 6v4M8.5 6v4M3 3.5l.7 7.5h6.6L11 3.5"
+                              stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Excluir
+                </a>
+            </div>
+
+        </div>
+    </div>
+</main>
+</th:block>
+
 </html>

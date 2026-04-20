@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="layout(pageTitle, content)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon: ícone bege na aba do navegador -->
+
+    <title th:text="${pageTitle} + ' — Kanban'">Kanban</title>
+
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- CSS global (navbar, variáveis, form, utilitários) -->
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+</head>
+<body>
+
+    <!-- Navbar via fragment -->
+    <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+
+    <!-- Conteúdo injetado pela página -->
+    <th:block th:replace="${content}"></th:block>
+
+</body>
+</html>
