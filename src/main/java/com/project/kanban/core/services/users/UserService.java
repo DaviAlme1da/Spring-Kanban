@@ -31,6 +31,7 @@ public class UserService {
 
     public User save(UserForm userForm) {
         var user = userMapper.toUser(userForm);
+        user.setPassword(passwordEncoder.encode(userForm.getPassword()));
         return userRepository.save(user);
     }
 
@@ -55,9 +56,9 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        var user = userRepository.findById(id)
-                .orElseThrow(UserNotFoundException::new);
-
-        userRepository.delete(user);
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException();
+        }
+        userRepository.deleteById(id);
     }
 }

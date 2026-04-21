@@ -22,7 +22,7 @@
         </a>
     </div>
 
-    <!-- Empty state -->
+    
     <div class="empty-state" th:if="${usersListem.empty}">
         <div class="empty-icon">
             <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
@@ -35,7 +35,7 @@
         <p class="empty-sub">Crie o primeiro usuário para começar.</p>
     </div>
 
-    <!-- Tabela -->
+    
     <div class="table-card" th:unless="${usersListem.empty}">
         <table>
             <thead>

@@ -22,7 +22,7 @@
         </a>
     </div>
 
-    <!-- Estado vazio -->
+    
     <div class="empty-state" th:if="${projectsListem.empty}">
         <div class="empty-icon">
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
@@ -42,7 +42,7 @@
         </a>
     </div>
 
-    <!-- Grid de projetos -->
+    
     <div class="projects-grid" th:unless="${projectsListem.empty}">
         <div class="project-card" th:each="project : ${projectsListem}">
 

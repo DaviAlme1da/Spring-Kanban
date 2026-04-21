@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Task {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,6 +39,6 @@ public class Task {
     private Status status = Status.TODO;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "project_id") 
+    @JoinColumn(name = "project_id")
     private Projects project;
 }

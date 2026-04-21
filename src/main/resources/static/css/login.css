@@ -24,7 +24,7 @@ body {
     overflow: hidden;
 }
 
-/* ── Background decorativo ── */
+
 body::before {
     content: '';
     position: fixed;
@@ -35,7 +35,7 @@ body::before {
     pointer-events: none;
 }
 
-/* Formas orgânicas de fundo */
+
 .bg-shape {
     position: fixed;
     border-radius: 50%;
@@ -59,7 +59,7 @@ body::before {
     top: 55%; left: 8%;
 }
 
-/* ── Grid de bolinhas sutil ── */
+
 .dot-grid {
     position: fixed;
     inset: 0;
@@ -68,7 +68,6 @@ body::before {
     background-size: 28px 28px;
 }
 
-/* ── Card ── */
 .card {
     position: relative;
     z-index: 10;
@@ -89,7 +88,7 @@ body::before {
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Linha de cor no topo do card */
+
 .card::before {
     content: '';
     position: absolute;
@@ -99,7 +98,7 @@ body::before {
     border-radius: 0 0 4px 4px;
 }
 
-/* ── Header ── */
+
 .card-header {
     margin-bottom: 32px;
     animation: fadeUp 0.55s 0.08s cubic-bezier(0.22,1,0.36,1) both;
@@ -145,7 +144,7 @@ body::before {
     font-weight: 300;
 }
 
-/* ── Form ── */
+
 form {
     display: flex;
     flex-direction: column;
@@ -214,7 +213,7 @@ input::placeholder {
     font-weight: 300;
 }
 
-/* ── Botão submit ── */
+
 .btn-submit {
     margin-top: 6px;
     width: 100%;
@@ -257,7 +256,7 @@ input::placeholder {
     transform: translateX(3px);
 }
 
-/* ── Footer links ── */
+
 .footer-links {
     display: flex;
     justify-content: space-between;
@@ -276,7 +275,7 @@ input::placeholder {
     color: var(--sage);
 }
 
-/* ── Divisor ── */
+
 .divider {
     display: flex;
     align-items: center;
@@ -296,7 +295,7 @@ input::placeholder {
     white-space: nowrap;
 }
 
-/* ── Erro de login ── */
+
 .login-error {
     display: flex;
     align-items: center;
@@ -311,7 +310,7 @@ input::placeholder {
     animation: fadeUp 0.3s cubic-bezier(0.22,1,0.36,1) both;
 }
 
-/* Borda vermelha nos inputs quando há erro */
+
 input.input-error {
     border-color: #e8b4b4 !important;
     background: #fdf9f9 !important;

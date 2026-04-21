@@ -9,29 +9,24 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    
-    
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        return  http.authorizeHttpRequests(customizer -> customizer
-            .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.authorizeHttpRequests(customizer -> customizer
+                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/users/**").hasRole("ADMIN")
                 .requestMatchers("/projects/**").hasAnyRole("COMMONUSER", "ADMIN")
-                .anyRequest().authenticated()
-            )
-            .formLogin(customizer -> customizer
-                .loginPage("/auth/login")
-                .defaultSuccessUrl("/projects", true)
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/auth/logout")
-                .logoutSuccessUrl("/auth/login")
-                .permitAll()
-)
+                .anyRequest().authenticated())
+                .formLogin(customizer -> customizer
+                        .loginPage("/auth/login")
+                        .defaultSuccessUrl("/projects", true)
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/auth/logout")
+                        .logoutSuccessUrl("/auth/login")
+                        .permitAll())
 
-            .build();
+                .build();
     }
 }

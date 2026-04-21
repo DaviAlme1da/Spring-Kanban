@@ -1,7 +1,5 @@
 package com.project.kanban.core.models;
 
-
-
 import com.project.kanban.core.enums.Role;
 
 import jakarta.persistence.Column;
@@ -22,11 +20,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
- 
+
     @Column(length = 100, nullable = false)
     private String name;
 

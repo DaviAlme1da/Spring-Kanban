@@ -21,12 +21,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ProjectsService {
-    
+
     private final ProjectsRepository projectsRepository;
     private final ProjectsMapper projectsMapper;
     private final AuthService authService;
 
-    
     public List<ProjectsListem> findAll() {
         var userLogado = authService.getUserLogado();
         boolean isAdmin = userLogado.getRole() == Role.ROLE_ADMIN;
@@ -43,18 +42,17 @@ public class ProjectsService {
                 .toList();
     }
 
-
-    public Projects save(ProjectsForm projectsForm){
+    public Projects save(ProjectsForm projectsForm) {
         projectsForm.setStartDate(LocalDate.now());
-        Long idOwner= authService.getUserLogado().getId();
+        Long idOwner = authService.getUserLogado().getId();
         projectsForm.setIdOwner(idOwner);
         var project = projectsMapper.toProjects(projectsForm);
 
         return projectsRepository.save(project);
     }
 
-    public ProjectsForm update(Long id){
-       var project = projectsRepository.findByIdWithOwner(id)
+    public ProjectsForm update(Long id) {
+        var project = projectsRepository.findByIdWithOwner(id)
                 .orElseThrow(ProjectsNotFoundException::new);
 
         checkOwnershipOrAdmin(project);
@@ -62,7 +60,7 @@ public class ProjectsService {
         return projectsMapper.toProjectsForm(project);
     }
 
-    public Projects update(Long id, ProjectsForm projectsForm){
+    public Projects update(Long id, ProjectsForm projectsForm) {
         var projectUpdate = projectsRepository.findByIdWithOwner(id)
                 .orElseThrow(ProjectsNotFoundException::new);
 
@@ -73,19 +71,17 @@ public class ProjectsService {
         return projectsRepository.save(projectUpdate);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         var project = projectsRepository.findByIdWithOwner(id)
                 .orElseThrow(ProjectsNotFoundException::new);
 
         checkOwnershipOrAdmin(project);
 
-        
-
         projectsRepository.delete(project);
     }
 
-    public ProjectsDetails details(Long id){
-        var project = projectsRepository.findById(id)
+    public ProjectsDetails details(Long id) {
+        var project = projectsRepository.findByIdWithOwner(id)
                 .orElseThrow(ProjectsNotFoundException::new);
 
         checkOwnershipOrAdmin(project);

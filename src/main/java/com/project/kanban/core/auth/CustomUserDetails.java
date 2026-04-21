@@ -11,7 +11,7 @@ import com.project.kanban.core.models.User;
 
 public class CustomUserDetails implements UserDetails{
     
-      private final User user;
+    private final User user;
 
     public CustomUserDetails(User user) {
         this.user = user;
@@ -21,7 +21,6 @@ public class CustomUserDetails implements UserDetails{
     public String getUsername() {
         return user.getName();
     }
-
 
     @Override
     public String getPassword() {
@@ -33,7 +32,6 @@ public class CustomUserDetails implements UserDetails{
         return List.of(new SimpleGrantedAuthority(user.getRole().name()));
     }
 
-    
     @Override
     public boolean isAccountNonExpired() {
         return true;

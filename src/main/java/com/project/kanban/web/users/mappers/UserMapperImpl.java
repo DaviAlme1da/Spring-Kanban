@@ -1,6 +1,5 @@
 package com.project.kanban.web.users.mappers;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.project.kanban.core.models.User;
@@ -13,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserMapperImpl implements UserMapper {
 
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserListem toUserListem(User user) {
@@ -36,7 +34,7 @@ public class UserMapperImpl implements UserMapper {
     public User toUser(UserForm userForm) {
         return User.builder()
                 .name(userForm.getName())
-                .password(passwordEncoder.encode(userForm.getPassword()))
+                .password(userForm.getPassword()) 
                 .role(userForm.getRole())
                 .build();
     }

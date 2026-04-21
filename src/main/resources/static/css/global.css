@@ -34,7 +34,7 @@ body::before {
     z-index: 0;
 }
 
-/* ── NAVBAR ── */
+
 .navbar {
     position: sticky;
     top: 0;
@@ -181,7 +181,7 @@ details[open] .chevron { transform: rotate(180deg); }
 .user-dropdown-item.danger { color: #b85450; }
 .user-dropdown-item.danger:hover { background: #fdf0ef; }
 
-/* ── UTILITÁRIOS COMPARTILHADOS ── */
+
 @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -231,7 +231,7 @@ details[open] .chevron { transform: rotate(180deg); }
 
 .btn-primary:active { transform: translateY(0); }
 
-/* ── FORM COMPARTILHADO ── */
+
 .main-form {
     position: relative;
     z-index: 1;
@@ -413,9 +413,7 @@ ul { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-t
 .btn-submit:hover .btn-arrow { transform: translateX(3px); }
 
 
-/* ════════════════════════════
-   PAGES — MAIN CONTAINERS
-════════════════════════════ */
+
 .main {
     position: relative;
     z-index: 1;
@@ -432,9 +430,7 @@ ul { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-t
     padding: 32px;
 }
 
-/* ════════════════════════════
-   PAGE HEADER
-════════════════════════════ */
+
 .page-header {
     display: flex;
     align-items: flex-end;
@@ -458,9 +454,7 @@ ul { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-t
     color: var(--muted);
 }
 
-/* ════════════════════════════
-   EMPTY STATE
-════════════════════════════ */
+
 .empty-state {
     display: flex;
     flex-direction: column;
@@ -495,9 +489,7 @@ ul { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-t
     margin-bottom: 8px;
 }
 
-/* ════════════════════════════
-   PROJECTS GRID
-════════════════════════════ */
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -686,9 +678,7 @@ ul { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-t
     border-radius: 20px;
 }
 
-/* ════════════════════════════
-   KANBAN BOARD
-════════════════════════════ */
+
 .kanban-board {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -856,9 +846,7 @@ ul { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-t
 
 .btn-move:active { transform: scale(0.96); }
 
-/* ════════════════════════════
-   USERS TABLE
-════════════════════════════ */
+
 .table-card {
     background: var(--card);
     border-radius: 16px;
@@ -986,7 +974,7 @@ tbody td {
     color: var(--danger);
 }
 
-/* ── Kanban topbar ── */
+
 .kanban-topbar {
     display: flex;
     align-items: center;
@@ -995,9 +983,7 @@ tbody td {
     animation: fadeUp 0.4s cubic-bezier(0.22,1,0.36,1) both;
 }
 
-/* ════════════════════════════
-   DETAILS — DOC CARD
-════════════════════════════ */
+
 .doc-card {
     background: var(--card);
     border-radius: 20px;
@@ -1144,7 +1130,7 @@ tbody td {
     font-style: italic;
 }
 
-/* Botão Ver Kanban (header) */
+
 .btn-kanban {
     display: inline-flex;
     align-items: center;
@@ -1169,7 +1155,7 @@ tbody td {
     box-shadow: 0 6px 18px rgba(136,160,133,0.38);
 }
 
-/* Botão Acessar Kanban (footer) */
+
 .btn-kanban-footer {
     display: inline-flex;
     align-items: center;
@@ -1196,7 +1182,7 @@ tbody td {
 .btn-kanban:hover .btn-arrow,
 .btn-kanban-footer:hover .btn-arrow { transform: translateX(3px); }
 
-/* Status badge (task details) */
+
 .status-badge {
     display: inline-flex;
     align-items: center;
@@ -1214,7 +1200,7 @@ tbody td {
 .badge-doing { background: #FFF8E6; color: #9A6F2A; border: 1px solid #F5DFA0; }
 .badge-done  { background: var(--sage-faint); color: var(--sage-dark); border: 1px solid var(--sage-light); }
 
-/* Botões editar/excluir (task details) */
+
 .btn-edit {
     display: inline-flex;
     align-items: center;

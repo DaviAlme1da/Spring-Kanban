@@ -16,7 +16,6 @@ public interface ProjectsRepository extends JpaRepository<Projects, Long> {
     @Query("SELECT p FROM Projects p JOIN FETCH p.owner")
     List<Projects> findAllWithOwner();
 
-    // mesmo nome que você já usa — só adiciona o JOIN FETCH na query
     @Query("SELECT p FROM Projects p JOIN FETCH p.owner WHERE p.owner.id = :ownerId")
     List<Projects> findByOwnerId(@Param("ownerId") Long ownerId);
 
