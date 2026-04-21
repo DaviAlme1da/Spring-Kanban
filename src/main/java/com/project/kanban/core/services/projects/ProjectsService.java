@@ -32,7 +32,7 @@ public class ProjectsService {
         boolean isAdmin = userLogado.getRole() == Role.ROLE_ADMIN;
 
         if (isAdmin) {
-            return projectsRepository.findAll()
+            return projectsRepository.findAllWithOwner()
                     .stream()
                     .map(projectsMapper::toProjectsListem)
                     .toList();
@@ -54,7 +54,7 @@ public class ProjectsService {
     }
 
     public ProjectsForm update(Long id){
-       var project = projectsRepository.findById(id)
+       var project = projectsRepository.findByIdWithOwner(id)
                 .orElseThrow(ProjectsNotFoundException::new);
 
         checkOwnershipOrAdmin(project);
@@ -63,7 +63,7 @@ public class ProjectsService {
     }
 
     public Projects update(Long id, ProjectsForm projectsForm){
-        var projectUpdate = projectsRepository.findById(id)
+        var projectUpdate = projectsRepository.findByIdWithOwner(id)
                 .orElseThrow(ProjectsNotFoundException::new);
 
         checkOwnershipOrAdmin(projectUpdate);
@@ -74,7 +74,7 @@ public class ProjectsService {
     }
 
     public void delete(Long id){
-        var project = projectsRepository.findById(id)
+        var project = projectsRepository.findByIdWithOwner(id)
                 .orElseThrow(ProjectsNotFoundException::new);
 
         checkOwnershipOrAdmin(project);
