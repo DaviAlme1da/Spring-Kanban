@@ -2,12 +2,12 @@
 
 :root {
     --bg:          #FDFBF6;
-    --card:        #f6f6f6;
+    --card:        #FFFFFF;
     --sage:        #88A085;
     --sage-dark:   #6b8469;
     --sage-light:  #d4e2d3;
     --text:        #4A554A;
-    --muted:       #3f6739;
+    --muted:       #9CA39B;
     --border:      #E5E7E3;
     --terracota:   #C99A7C;
     --radius:      16px;
@@ -294,4 +294,25 @@ input::placeholder {
     font-size: 11px;
     color: var(--muted);
     white-space: nowrap;
+}
+
+/* ── Erro de login ── */
+.login-error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fdf3f3;
+    color: #B36B6B;
+    border: 1px solid #e8b4b4;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 4px;
+    animation: fadeUp 0.3s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* Borda vermelha nos inputs quando há erro */
+input.input-error {
+    border-color: #e8b4b4 !important;
+    background: #fdf9f9 !important;
 }
