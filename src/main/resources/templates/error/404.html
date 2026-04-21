@@ -1,17 +1,50 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>Page Title</title>
-    <link rel='stylesheet' href='main.css'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Página não encontrada</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/404.css}">
 </head>
 <body>
-    <h3>Oops! A página não foi encontrada.</h3>
-    <p>
-        Não foi possível encontrar a página que você estava procurando.
-        Enquanto isso, você pode <a th:href="@{/projects}">retornar a página inicial</a>.
-      </p>
+
+    <div class="error-page">
+
+        <!-- Ícone SVG de folha -->
+        <div class="error-icon">
+            <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M26 6C26 6 10 14 10 28C10 36.837 17.163 44 26 44C34.837 44 42 36.837 42 28C42 14 26 6 26 6Z"
+                      fill="#d4e2d3" stroke="#88A085" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M26 44V28" stroke="#88A085" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M26 34C26 34 20 30 16 24" stroke="#88A085" stroke-width="1.3" stroke-linecap="round"/>
+                <path d="M26 28C26 28 32 24 36 18" stroke="#88A085" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <!-- Número 404 -->
+        <p class="error-code">404</p>
+
+        <!-- Título -->
+        <h1 class="error-title">Página não encontrada</h1>
+
+        <!-- Descrição -->
+        <p class="error-description">
+            Não foi possível encontrar a página que você estava procurando.
+            Ela pode ter sido movida ou removida.
+        </p>
+
+        <!-- Botão voltar -->
+        <a th:href="@{/projects}" class="btn-home">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Voltar para a página inicial
+        </a>
+
+    </div>
+
 </body>
 </html>
-

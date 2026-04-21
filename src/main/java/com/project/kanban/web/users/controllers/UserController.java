@@ -23,7 +23,9 @@ public class UserController {
 
     @GetMapping
     public ModelAndView index() {
-        var model = Map.of("usersListem", userService.findAll());
+        var model = Map.of(
+                "usersListem", userService.findAll(),
+                "pageTitle", "Usuários");
         return new ModelAndView("users/index", model);
     }
 
@@ -53,7 +55,7 @@ public class UserController {
                 "pageSubtitle", "Gerenciamento",
                 "submitLabel", "Salvar Alterações",
                 "formAction", "/users/edit/" + id,
-                "showPassword", false); 
+                "showPassword", false);
         return new ModelAndView("users/form", model);
     }
 

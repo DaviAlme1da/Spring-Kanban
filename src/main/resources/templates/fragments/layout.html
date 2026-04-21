@@ -6,26 +6,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Favicon: ícone bege na aba do navegador -->
-
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2388A085'/><path d='M16 4C16 4 8 9 8 17C8 21.4 11.6 25 16 25C20.4 25 24 21.4 24 17C24 9 16 4 16 4Z' fill='white' opacity='0.9'/><path d='M16 25V17' stroke='white' stroke-width='1.5' stroke-linecap='round'/></svg>" type="image/svg+xml">
     <title th:text="${pageTitle} + ' — Kanban'">Kanban</title>
-
-    <!-- Fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
-    <!-- CSS global (navbar, variáveis, form, utilitários) -->
     <link rel="stylesheet" th:href="@{/css/global.css}">
 </head>
 <body>
-
-    <!-- Navbar via fragment -->
     <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
-
-    <!-- Conteúdo injetado pela página -->
     <th:block th:replace="${content}"></th:block>
-
 </body>
 </html>

@@ -2,9 +2,8 @@
 <html lang="pt-br"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:replace="~{fragments/layout :: layout(~{::title}, ~{::content})}">
+      th:replace="~{fragments/layout :: layout(${pageTitle}, ~{::content})}">
 
-<title th:fragment="title">Projetos — Kanban</title>
 
 <th:block th:fragment="content">
 <main class="main">

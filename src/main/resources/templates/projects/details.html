@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br"
       xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: layout(~{::title}, ~{::content})}">
-
-<title th:fragment="title" th:text="${ProjectDetails.name} + ' — Kanban'">Detalhes do Projeto</title>
+      th:replace="~{fragments/layout :: layout(${pageTitle}, ~{::content})}">
 
 <th:block th:fragment="content">
 <main class="main">

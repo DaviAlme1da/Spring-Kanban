@@ -1,6 +1,6 @@
 package com.project.kanban.core.exceptions;
 
-public class ProjectsNotFoundException extends ModelNotFoundException {
+public class ProjectsNotFoundException extends ModelNotFoundException  {
 
     public ProjectsNotFoundException(String massage) {
         super(massage);

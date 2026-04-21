@@ -1,8 +1,12 @@
 package com.project.kanban.core.exceptions;
 
-public class ModelNotFoundException extends RuntimeException{
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class ModelNotFoundException extends RuntimeException {
     
-    public ModelNotFoundException(String massage){
+    public ModelNotFoundException(String massage) {
         super(massage);
     }
 }

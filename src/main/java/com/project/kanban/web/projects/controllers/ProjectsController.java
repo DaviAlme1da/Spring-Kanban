@@ -23,9 +23,11 @@ public class ProjectsController {
 
     @GetMapping
     public ModelAndView index() {
-
-        var model = Map.of("projectsListem", projectsService.findAll());
+        var model = Map.of(
+                "projectsListem", projectsService.findAll(),
+                "pageTitle", "Projetos");
         return new ModelAndView("projects/index", model);
+
     }
 
     @GetMapping("/create")
@@ -82,7 +84,8 @@ public class ProjectsController {
     @GetMapping("details/{id}")
     public ModelAndView details(@PathVariable Long id) {
 
-        var model = Map.of("ProjectDetails", projectsService.details(id));
+        var model = Map.of("ProjectDetails", projectsService.details(id),
+        "pageTitle", "Detalhes do Projeto");
 
         return new ModelAndView("projects/details", model);
     }

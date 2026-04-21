@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403 — Acesso restrito</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/403.css}">
+</head>
+<body>
+
+    <div class="error-page">
+
+        <!-- Ícone cadeado -->
+        <div class="error-icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="8" y="22" width="32" height="22" rx="5" fill="#d4e2d3" stroke="#88A085" stroke-width="1.5"/>
+                <path d="M15 22V16a9 9 0 0 1 18 0v6" stroke="#88A085" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="24" cy="33" r="3" fill="#88A085"/>
+                <path d="M24 36v3" stroke="#88A085" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <!-- Número 403 -->
+        <p class="error-code">403</p>
+
+        <!-- Título -->
+        <h1 class="error-title">Acesso restrito</h1>
+
+        <!-- Descrição -->
+        <p class="error-description">
+            Parece que você não tem permissão para visualizar esta área.
+            Se acha que isso é um erro, entre em contato com um administrador.
+        </p>
+
+        <!-- Botão voltar -->
+        <a th:href="@{/projects}" class="btn-home">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Voltar para o painel
+        </a>
+
+    </div>
+
+</body>
+</html>

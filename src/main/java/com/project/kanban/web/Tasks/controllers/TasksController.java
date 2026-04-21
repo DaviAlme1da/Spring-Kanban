@@ -24,7 +24,10 @@ public class TasksController {
     @GetMapping
     public ModelAndView index(@PathVariable Long idProject) {
 
-        var model = Map.of("TasksListItem", tasksService.index(idProject));
+        var model = Map.of(
+                "TasksListItem", tasksService.index(idProject),
+                "idProject", idProject,
+                "pageTitle", "Quadro Kanban");
 
         return new ModelAndView("tasks/index", model);
 
@@ -75,25 +78,27 @@ public class TasksController {
     @GetMapping("/moveToNextStatus/{id}")
     public String moveToNextStatus(@PathVariable Long idProject, @PathVariable Long id) {
         tasksService.moveToNextStatus(id);
-        return "redirect:/projects/" + idProject + "/tasks"; 
+        return "redirect:/projects/" + idProject + "/tasks";
     }
 
     @GetMapping("/moveToPreviousStatus/{id}")
     public String moveToPreviousStatus(@PathVariable Long idProject, @PathVariable Long id) {
         tasksService.moveToPreviousStatus(id);
-        return "redirect:/projects/" + idProject + "/tasks"; 
+        return "redirect:/projects/" + idProject + "/tasks";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long idProject, @PathVariable Long id) {
         tasksService.delete(id);
-        return "redirect:/projects/" + idProject + "/tasks"; 
+        return "redirect:/projects/" + idProject + "/tasks";
     }
 
     @GetMapping("/details/{id}")
     public ModelAndView details(@PathVariable Long id) {
 
-        var model = Map.of("TaskDetails", tasksService.details(id));
+        var model = Map.of(
+                "TaskDetails", tasksService.details(id),
+                "pageTitle", "Detalhes da Tarefas");
 
         return new ModelAndView("tasks/details", model);
     }
