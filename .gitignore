@@ -54,3 +54,12 @@ application-prod.properties
 ### OS ###
 .DS_Store
 Thumbs.db
+
+# Arquivos gerados pelo build
+*.jar
+*.war
+*.class
+
+
+# Arquivo local de configuração (se criar um só para desenvolvimento)
+application-local.properties

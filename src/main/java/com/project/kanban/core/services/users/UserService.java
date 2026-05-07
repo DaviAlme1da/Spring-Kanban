@@ -2,12 +2,14 @@ package com.project.kanban.core.services.users;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.kanban.core.exceptions.UserNotFoundException;
 import com.project.kanban.core.models.User;
 import com.project.kanban.core.repositories.UserRepository;
+import com.project.kanban.core.services.email.EmailService;
 import com.project.kanban.web.users.dtos.UserForm;
 import com.project.kanban.web.users.dtos.UserListem;
 import com.project.kanban.web.users.mappers.UserMapper;
@@ -18,8 +20,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private EmailService emailService;
     private final UserMapper userMapper;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     public List<UserListem> findAll() {
@@ -32,6 +36,9 @@ public class UserService {
     public User save(UserForm userForm) {
         var user = userMapper.toUser(userForm);
         user.setPassword(passwordEncoder.encode(userForm.getPassword()));
+
+        emailService.enviarEmailBoasVindas("davi.lucas.7almeida@gmail.com", user.getName());
+
         return userRepository.save(user);
     }
 
