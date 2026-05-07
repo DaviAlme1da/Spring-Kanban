@@ -20,6 +20,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated())
                 .formLogin(customizer -> customizer
                         .loginPage("/auth/login")
+                        .loginProcessingUrl("/auth/login")
                         .defaultSuccessUrl("/projects", true)
                         .permitAll())
                 .logout(logout -> logout
