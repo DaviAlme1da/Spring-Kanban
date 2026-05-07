@@ -21,8 +21,6 @@ logs/
 .env.*
 
 ### Spring Boot (SENSITIVE CONFIG) ###
-application.properties
-application.yml
 application-dev.properties
 application-prod.properties
 
